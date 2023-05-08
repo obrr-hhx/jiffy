@@ -22,7 +22,7 @@ class persistent_service {
    * @brief Constructor
    * @param Custom serializer/deserializer
    */
-  persistent_service(std::shared_ptr<storage::serde> ser) : ser_(std::move(ser)) {}
+  persistent_service(::std::shared_ptr<storage::serde> ser) : ser_(::std::move(ser)) {}
 
   /**
    * @brief Destructor
@@ -36,7 +36,7 @@ class persistent_service {
    */
 
   template<typename Datatype>
-  void write(const Datatype &table, const std::string &out_path) {
+  void write(const Datatype &table, const ::std::string &out_path) {
     return virtual_write(table, out_path);
   }
 
@@ -47,7 +47,7 @@ class persistent_service {
    */
 
   template<typename Datatype>
-  void read(const std::string &in_path, Datatype &table) {
+  void read(const ::std::string &in_path, Datatype &table) {
     return virtual_read(in_path, table);
   }
 
@@ -55,19 +55,19 @@ class persistent_service {
    * @brief Fetch URI
    * @return URI
    */
-  virtual std::string URI() = 0;
+  virtual ::std::string URI() = 0;
 
   /**
    * @brief Fetch custom serializer/deserializer
    * @return Custom serializer/deserializer
    */
-  std::shared_ptr<storage::serde> serde() {
+  ::std::shared_ptr<storage::serde> serde() {
     return ser_;
   }
 
  private:
   /* Custom serializer/deserializer */
-  std::shared_ptr<storage::serde> ser_;
+  ::std::shared_ptr<storage::serde> ser_;
 
   /**
    * @brief Virtual write for fifo queue
@@ -75,7 +75,7 @@ class persistent_service {
    * @param out_path Persistent store path
    */
 
-  virtual void virtual_write(const storage::fifo_queue_type &table, const std::string &out_path) = 0;
+  virtual void virtual_write(const storage::fifo_queue_type &table, const ::std::string &out_path) = 0;
 
   /**
    * @brief Virtual write for file
@@ -83,7 +83,7 @@ class persistent_service {
    * @param out_path Persistent store path
    */
 
-  virtual void virtual_write(const storage::file_type &table, const std::string &out_path) = 0;
+  virtual void virtual_write(const storage::file_type &table, const ::std::string &out_path) = 0;
 
    /**
    * @brief Virtual write for shared_log
@@ -91,7 +91,7 @@ class persistent_service {
    * @param out_path Persistent store path
    */
 
-  virtual void virtual_write(const storage::shared_log_serde_type &table, const std::string &out_path) = 0;
+  virtual void virtual_write(const storage::shared_log_serde_type &table, const ::std::string &out_path) = 0;
 
   /**
    * @brief Virtual write for new hash table type
@@ -99,7 +99,7 @@ class persistent_service {
    * @param out_path Persistent store path
    */
 
-  virtual void virtual_write(const storage::hash_table_type &table, const std::string &out_path) = 0;
+  virtual void virtual_write(const storage::hash_table_type &table, const ::std::string &out_path) = 0;
 
   /**
    * @brief Virtual read for fifo queue
@@ -107,7 +107,7 @@ class persistent_service {
    * @param table Fifo queue
    */
 
-  virtual void virtual_read(const std::string &in_path, storage::fifo_queue_type &table) = 0;
+  virtual void virtual_read(const ::std::string &in_path, storage::fifo_queue_type &table) = 0;
 
   /**
    * @brief Virtual read for file
@@ -115,7 +115,7 @@ class persistent_service {
    * @param table File
    */
 
-  virtual void virtual_read(const std::string &in_path, storage::file_type &table) = 0;
+  virtual void virtual_read(const ::std::string &in_path, storage::file_type &table) = 0;
 
   /**
    * @brief Virtual read for shared_log
@@ -123,7 +123,7 @@ class persistent_service {
    * @param table shared_log
    */
 
-  virtual void virtual_read(const std::string &in_path, storage::shared_log_serde_type &table) = 0;
+  virtual void virtual_read(const ::std::string &in_path, storage::shared_log_serde_type &table) = 0;
 
   /**
    * @brief Virtual read for new hash table type
@@ -131,7 +131,7 @@ class persistent_service {
    * @param table Hash table
    */
 
-  virtual void virtual_read(const std::string &in_path, storage::hash_table_type &table) = 0;
+  virtual void virtual_read(const ::std::string &in_path, storage::hash_table_type &table) = 0;
 };
 
 /**
@@ -156,7 +156,7 @@ class derived_persistent : public persistent_service_impl {
    */
 
 
-  void virtual_write(const storage::fifo_queue_type &table, const std::string &out_path) final {
+  void virtual_write(const storage::fifo_queue_type &table, const ::std::string &out_path) final {
     return persistent_service_impl::write_impl(table, out_path);
   }
 
@@ -166,7 +166,7 @@ class derived_persistent : public persistent_service_impl {
    * @param out_path Persistent store path
    */
 
-  void virtual_write(const storage::file_type &table, const std::string &out_path) final {
+  void virtual_write(const storage::file_type &table, const ::std::string &out_path) final {
     return persistent_service_impl::write_impl(table, out_path);
   }
 
@@ -176,7 +176,7 @@ class derived_persistent : public persistent_service_impl {
    * @param out_path Persistent store path
    */
 
-  void virtual_write(const storage::shared_log_serde_type &table, const std::string &out_path) final {
+  void virtual_write(const storage::shared_log_serde_type &table, const ::std::string &out_path) final {
     return persistent_service_impl::write_impl(table, out_path);
   }
 
@@ -186,7 +186,7 @@ class derived_persistent : public persistent_service_impl {
    * @param out_path Persistent store path
    */
 
-  void virtual_write(const storage::hash_table_type &table, const std::string &out_path) final {
+  void virtual_write(const storage::hash_table_type &table, const ::std::string &out_path) final {
     return persistent_service_impl::write_impl(table, out_path);
   }
 
@@ -196,7 +196,7 @@ class derived_persistent : public persistent_service_impl {
    * @param table Fifo queue
    */
 
-  void virtual_read(const std::string &in_path, storage::fifo_queue_type &table) final {
+  void virtual_read(const ::std::string &in_path, storage::fifo_queue_type &table) final {
     return persistent_service_impl::read_impl(in_path, table);
   }
 
@@ -206,7 +206,7 @@ class derived_persistent : public persistent_service_impl {
    * @param table File
    */
 
-  void virtual_read(const std::string &in_path, storage::file_type &table) final {
+  void virtual_read(const ::std::string &in_path, storage::file_type &table) final {
     return persistent_service_impl::read_impl(in_path, table);
   }
 
@@ -216,7 +216,7 @@ class derived_persistent : public persistent_service_impl {
    * @param table shared_log
    */
 
-  void virtual_read(const std::string &in_path, storage::shared_log_serde_type &table) final {
+  void virtual_read(const ::std::string &in_path, storage::shared_log_serde_type &table) final {
     return persistent_service_impl::read_impl(in_path, table);
   }
 
@@ -226,7 +226,7 @@ class derived_persistent : public persistent_service_impl {
    * @param table Hash table
    */
 
-  void virtual_read(const std::string &in_path, storage::hash_table_type &table) final {
+  void virtual_read(const ::std::string &in_path, storage::hash_table_type &table) final {
     return persistent_service_impl::read_impl(in_path, table);
   }
 
@@ -242,7 +242,7 @@ class local_store_impl : public persistent_service {
    * @param ser Custom serializer/deserializer
    */
 
-  local_store_impl(std::shared_ptr<storage::serde> ser);
+  local_store_impl(::std::shared_ptr<storage::serde> ser);
 
   /**
    * @brief Write data from hash table to persistent storage
@@ -250,11 +250,11 @@ class local_store_impl : public persistent_service {
    * @param out_path Output persistent storage path
    */
   template<typename Datatype>
-  void write_impl(const Datatype &table, const std::string &out_path) {
+  void write_impl(const Datatype &table, const ::std::string &out_path) {
     size_t found = out_path.find_last_of("/\\");
     auto dir = out_path.substr(0, found);
     directory_utils::create_directory(dir);
-    std::shared_ptr<std::ofstream> out(new std::ofstream(out_path));
+    std::shared_ptr<std::ofstream> out(new ::std::ofstream(out_path));
     serde()->serialize<Datatype>(table, out_path);
     out->close();
   }
@@ -265,8 +265,8 @@ class local_store_impl : public persistent_service {
    * @param table Hash table
    */
   template<typename Datatype>
-  void read_impl(const std::string &in_path, Datatype &table) {
-    auto in = std::make_shared<std::ifstream>(in_path.c_str(), std::fstream::in);
+  void read_impl(const ::std::string &in_path, Datatype &table) {
+    auto in = ::std::make_shared<::std::ifstream>(in_path.c_str(), ::std::fstream::in);
     serde()->deserialize<Datatype>(table, in_path);
     in->close();
   }
@@ -277,7 +277,7 @@ class local_store_impl : public persistent_service {
    * @return URI string
    */
 
-  std::string URI() override;
+  ::std::string URI() override;
 };
 
 using local_store = derived_persistent<local_store_impl>;
@@ -309,7 +309,7 @@ class s3_store_impl : public persistent_service {
    * @param ser Custom serializer/deserializer
    */
 
-  s3_store_impl(std::shared_ptr<storage::serde> ser);
+  s3_store_impl(::std::shared_ptr<storage::serde> ser);
 
   /**
    * @brief Write data from hash table to persistent storage
@@ -318,7 +318,7 @@ class s3_store_impl : public persistent_service {
    */
   
   template<typename Datatype>
-  void write_impl(const Datatype &table, const std::string &out_path) {
+  void write_impl(const Datatype &table, const ::std::string &out_path) {
     auto path_elements = extract_path_elements(out_path);
     auto bucket_name = path_elements.first.c_str();
     auto key = path_elements.second.c_str();
@@ -332,7 +332,7 @@ class s3_store_impl : public persistent_service {
     Aws::Utils::Stream::SimpleStreamBuf sbuf;
     auto out = Aws::MakeShared<Aws::IOStream>("StreamBuf", &sbuf);
     serde()->serialize<Datatype>(table, out_path);
-    out->seekg(0, std::ios_base::beg);
+    out->seekg(0, ::std::ios_base::beg);
 
     object_request.SetBody(out);
     auto put_object_outcome = s3_client.PutObject(object_request);
@@ -341,7 +341,7 @@ class s3_store_impl : public persistent_service {
     } else {
       LOG(log_level::error) << "S3 PutObject error: " << put_object_outcome.GetError().GetExceptionName() << " " <<
                             put_object_outcome.GetError().GetMessage();
-      throw std::runtime_error("Error in writing data to S3");
+      throw ::std::runtime_error("Error in writing data to S3");
     }
   }
 
@@ -352,7 +352,7 @@ class s3_store_impl : public persistent_service {
    */
 
   template<typename Datatype>
-  void read_impl(const std::string &in_path, Datatype &table) {
+  void read_impl(const ::std::string &in_path, Datatype &table) {
     auto path_elements = extract_path_elements(in_path);
     auto bucket_name = path_elements.first.c_str();
     auto key = path_elements.second.c_str();
@@ -366,13 +366,13 @@ class s3_store_impl : public persistent_service {
 
     if (get_object_outcome.IsSuccess()) {
       Aws::OFStream local_file;
-      auto in = std::make_shared<Aws::IOStream>(get_object_outcome.GetResult().GetBody().rdbuf());
+      auto in = ::std::make_shared<Aws::IOStream>(get_object_outcome.GetResult().GetBody().rdbuf());
       serde()->deserialize<Datatype>(table, in_path);
       LOG(log_level::info) << "Successfully read table from " << in_path;
     } else {
       LOG(log_level::error) << "S3 GetObject error: " << get_object_outcome.GetError().GetExceptionName() << " " <<
                             get_object_outcome.GetError().GetMessage();
-      throw std::runtime_error("Error in reading data from S3");
+      throw ::std::runtime_error("Error in reading data from S3");
     }
   }
  public:
@@ -381,7 +381,7 @@ class s3_store_impl : public persistent_service {
    * @return URI string
    */
 
-  std::string URI() override;
+  ::std::string URI() override;
  private:
   /**
    * @brief Extract path element
@@ -389,7 +389,7 @@ class s3_store_impl : public persistent_service {
    * @return Pair of bucket name and key
    */
 
-  std::pair<std::string, std::string> extract_path_elements(const std::string &s3_path);
+  ::std::pair<::std::string, ::std::string> extract_path_elements(const ::std::string &s3_path);
   /* AWS SDK options */
   Aws::SDKOptions options_;
 };
