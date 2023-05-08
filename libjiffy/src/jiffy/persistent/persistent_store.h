@@ -17,7 +17,7 @@ class persistent_store {
    * @return Persistent service
    */
 
-  static std::shared_ptr<persistent_service> instance(const std::string &path, std::shared_ptr<storage::serde> ser);
+  static ::std::shared_ptr<persistent_service> instance(const ::std::string &path, ::std::shared_ptr<storage::serde> ser);
 
   /**
    * @brief Decompose path
@@ -25,7 +25,7 @@ class persistent_store {
    * @return Pair of uri and key
    */
 
-  static std::pair<std::string, std::string> decompose_path(const std::string &path);
+  static ::std::pair<::std::string, ::std::string> decompose_path(const ::std::string &path);
 
 };
 
