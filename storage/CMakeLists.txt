@@ -11,7 +11,7 @@ add_executable(storaged src/storage_server.cpp
 
 add_dependencies(storaged boost_ep ${HEAP_MANAGER_EP} thrift_ep)
 
-target_link_libraries(storaged jiffy ${HEAP_MANAGER_LIBRARY} ${Boost_PROGRAM_OPTIONS_LIBRARY})
+target_link_libraries(storaged jiffy ${HEAP_MANAGER_LIBRARY} ${Boost_PROGRAM_OPTIONS_LIBRARY} ${AWSSDK_LINK_LIBRARIES} curl brotlicommon)
 
 install(TARGETS storaged
         RUNTIME DESTINATION bin

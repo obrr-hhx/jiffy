@@ -9,7 +9,7 @@ add_executable(directoryd src/directory_server.cpp)
 
 add_dependencies(directoryd boost_ep ${HEAP_MANAGER_EP} thrift_ep)
 
-target_link_libraries(directoryd jiffy ${HEAP_MANAGER_LIBRARY} ${Boost_PROGRAM_OPTIONS_LIBRARY})
+target_link_libraries(directoryd jiffy ${HEAP_MANAGER_LIBRARY} ${Boost_PROGRAM_OPTIONS_LIBRARY} curl brotlicommon)
 
 install(TARGETS directoryd
         RUNTIME DESTINATION bin

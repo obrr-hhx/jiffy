@@ -14,19 +14,22 @@ find_package(Threads REQUIRED)
 # Apache Thrift
 include(ThriftExternal)
 
-include(AwsSDKExternal)
-
 # AWS SDK
 if (BUILD_S3_SUPPORT)
   CheckHasModule(AWSSDK)
   if (HAS_MODULE_AWSSDK)
     find_package(AWSSDK REQUIRED COMPONENTS "${AWSSDK_MODULES}")
   endif ()
-  if (NOT AWSSDK_FOUND)
-    add_definitions(-DS3_EXTERNAL)
-  else(AWSSDK_FOUND)
-    message(FATAL_ERROR "Could not find aws-sdk-cpp, required for building support for S3 as external store.")
-  endif(AWSSDK_FOUND)
+  # if (AWSSDK_FOUND)
+  #   add_definitions(-DS3_EXTERNAL)
+  #   include(AwsSDKExternal)
+  # else(AWSSDK_FOUND)
+  #   message(FATAL_ERROR "Could not find aws-sdk-cpp, required for building support for S3 as external store.")
+  #   add_definitions(-DS3_INTERNAL)
+  #   include(AwsSDKExternal)
+  # endif(AWSSDK_FOUND)
+  add_definitions(-DS3_EXTERNAL)
+  include(AwsSDKExternal)
 endif ()
 
 # Memkind
